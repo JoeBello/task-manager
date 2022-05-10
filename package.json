@@ -6,6 +6,7 @@
 	"scripts": {
 		"build": "rimraf ./build && tsc",
 		"dev": "nodemon",
+		"lint": "eslint src/**/* --ext .ts",
 		"start": "npm run build && node build/index.js"
 	},
 	"dependencies": {
@@ -14,7 +15,10 @@
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.31",
+		"@typescript-eslint/eslint-plugin": "^5.23.0",
+		"@typescript-eslint/parser": "^5.23.0",
 		"dotenv": "^16.0.0",
+		"eslint": "^8.15.0",
 		"nodemon": "^2.0.16",
 		"rimraf": "^3.0.2",
 		"ts-node": "^10.7.0",
