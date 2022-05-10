@@ -5,14 +5,16 @@
 	},
 	"extends": [
 		"eslint:recommended",
-		"plugin:@typescript-eslint/recommended"
+		"plugin:@typescript-eslint/recommended",
+		"prettier"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"project": "./tsconfig.json"
 	},
 	"plugins": [
-		"@typescript-eslint"
+		"@typescript-eslint",
+		"prettier"
 	],
 	"rules": {
 		"indent": [
@@ -24,6 +26,9 @@
 			"unix"
 		],
 		"no-trailing-spaces": [
+			"error"
+		],
+		"prettier/prettier": [
 			"error"
 		],
 		"quotes": [

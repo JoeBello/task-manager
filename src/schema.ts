@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from "graphql-tag";
 
 const typeDefs = gql`
 	type User {
@@ -11,6 +11,6 @@ const typeDefs = gql`
 	type Query {
 		user: User!
 	}
-`
+`;
 
-export default typeDefs
+export default typeDefs;
