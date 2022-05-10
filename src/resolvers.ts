@@ -1,6 +1,7 @@
 const resolvers = {
 	Query: {
-		user(obj, args, context, info) {
+		// user(obj, args, context, info) {
+		user() {
 			return {
 				id: 1,
 				username: 'derp',

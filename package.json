@@ -1,18 +1,23 @@
 {
 	"name": "task-manager",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "index.ts",
 	"license": "MIT",
 	"scripts": {
-		"dev": "nodemon server.js"
+		"build": "rimraf ./build && tsc",
+		"dev": "nodemon",
+		"start": "npm run build && node build/index.js"
 	},
-	"type": "module",
 	"dependencies": {
 		"apollo-server": "^3.7.0",
 		"graphql": "^16.4.0"
 	},
 	"devDependencies": {
+		"@types/node": "^17.0.31",
 		"dotenv": "^16.0.0",
-		"nodemon": "^2.0.16"
+		"nodemon": "^2.0.16",
+		"rimraf": "^3.0.2",
+		"ts-node": "^10.7.0",
+		"typescript": "^4.6.4"
 	}
 }
