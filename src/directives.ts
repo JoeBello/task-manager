@@ -1,3 +1,3 @@
-const directives = {};
+const directives = {}
 
-export default directives;
+export default directives

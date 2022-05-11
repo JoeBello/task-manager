@@ -4,12 +4,12 @@ const resolvers = {
 		user() {
 			return {
 				id: 1,
-				username: "derp",
-				createdAt: "string",
-				lastModified: "string"
-			};
+				username: 'derp',
+				createdAt: 'string',
+				lastModified: 'string'
+			}
 		}
 	}
-};
+}
 
 export default resolvers
