@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server'
 import 'dotenv/config'
 
 import resolvers from './resolvers'
-import typeDefs from './schema'
+import typeDefs from './typeDefs'
 
 const server = new ApolloServer({
 	typeDefs,
