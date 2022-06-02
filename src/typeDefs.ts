@@ -19,7 +19,7 @@ const typeDefs = gql`
 	}
 
 	type Task {
-		author: User!
+		user: User!
 		createdAt: String!
 		description: String
 		id: ID!
@@ -39,8 +39,8 @@ const typeDefs = gql`
 	}
 
 	type Query {
-		user: User!
-		task: Task!
+		user(id: ID!): User!
+		task(id: ID!): Task!
 	}
 
 	type Mutation {
