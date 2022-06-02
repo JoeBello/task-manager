@@ -1,27 +1,22 @@
+import { User, Task } from './model'
+
 const resolvers = {
 	Query: {
-		// user(obj, args, context, info) {
-		user() {
-			return {
-				id: 1,
-				username: 'derp',
-				createdAt: 'string',
-				lastModified: 'string'
-			}
+		user(parent: Record<string, any>, args: Record<string, any>) {
+			return User.getById(args.id)
 		},
-		task() {
-			return {
-				id: 2,
-				author: {
-					id: 1,
-					username: 'derp',
-					createdAt: 'string',
-					lastModified: 'string'
-				},
-				createdAt: 'string',
-				modifiedAt: 'string',
-				title: 'Clean the dishes'
-			}
+		task(parent: Record<string, any>, args: Record<string, any>) {
+			return Task.getById(args.id)
+		}
+	},
+	User: {
+		tasks(parent: Record<string, any>) {
+			return Task.getByUserId(parent.id)
+		}
+	},
+	Task: {
+		user(parent: Record<string, any>) {
+			return User.getByTaskId(parent.id)
 		}
 	}
 }
