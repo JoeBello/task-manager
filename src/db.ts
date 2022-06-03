@@ -1,4 +1,8 @@
-export const Users = [
+import casual from 'casual'
+
+import { Task, NewTask, User } from './model'
+
+export const Users: User[] = [
 	{
 		id: '1',
 		username: 'Joe',
@@ -15,7 +19,7 @@ export const Users = [
 	}
 ]
 
-export const Tasks = [
+export const Tasks: Task[] = [
 	{
 		user: '1',
 		createdAt: new Date(),
@@ -49,3 +53,37 @@ export const Tasks = [
 		title: 'Two HUndred and One'
 	}
 ]
+
+export const insertTask = function insertTask(task: NewTask) {
+	const taskUser = Users.find((user) => user.id === task.user)
+
+	if (!taskUser) {
+		throw new Error('Task user does not exist!')
+	}
+
+	const insertTask = formatForWrite({ ...task }) as Task
+	const insertUser = {
+		...taskUser,
+		tasks: [...taskUser.tasks, insertTask.id]
+	}
+
+	write(Tasks, insertTask)
+	write(Users, insertUser)
+
+	return insertTask
+}
+
+const write = function write(table: Array<Task | User>, data: Task | User) {
+	table.push(data)
+	return data
+}
+
+const formatForWrite = function formatForWrite(data: NewTask) {
+	const timestamp = new Date()
+	return {
+		...data,
+		id: `${casual.integer()}`,
+		createdAt: timestamp,
+		modifiedAt: timestamp
+	}
+}
