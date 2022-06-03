@@ -9,6 +9,11 @@ const resolvers = {
 			return Task.getById(args.id)
 		}
 	},
+	Mutation: {
+		newTask(parent: Record<string, any>, args: Record<string, any>) {
+			return Task.create(args.input)
+		}
+	},
 	User: {
 		tasks(parent: Record<string, any>) {
 			return Task.getByUserId(parent.id)
