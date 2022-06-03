@@ -30,6 +30,7 @@ const typeDefs = gql`
 	input NewTaskInput {
 		description: String
 		title: String!
+		user: ID!
 	}
 
 	input UpdateTaskInput {
@@ -44,7 +45,7 @@ const typeDefs = gql`
 	}
 
 	type Mutation {
-		newTask(input: NewTaskInput!): User!
+		newTask(input: NewTaskInput!): Task!
 		newUser(input: NewUserInput!): User!
 		updateTask(input: UpdateTaskInput!): User!
 		updateUser(input: UpdateUserInput!): User!
