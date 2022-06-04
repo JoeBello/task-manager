@@ -10,6 +10,9 @@ const resolvers = {
 		}
 	},
 	Mutation: {
+		newUser(parent: Record<string, any>, args: Record<string, any>) {
+			return User.create(args.input)
+		},
 		newTask(parent: Record<string, any>, args: Record<string, any>) {
 			return Task.create(args.input)
 		}
