@@ -1,15 +1,21 @@
-import { Users, Tasks, insertTask } from './db'
+import { insertTask, insertUser, Tasks, Users } from './db'
 
 export interface User {
 	id: string
 	username: string
-	createdAt: Date
-	lastModified: Date
+	createdAt: string
+	modifiedAt: string
 	tasks: Array<string>
 }
 
+export interface NewUser {
+	username: string
+}
+
 export const User = {
-	// create
+	create: (newUser: NewUser) => {
+		return insertUser(newUser)
+	},
 	getById: (id: string) => {
 		return Users.find((user) => user.id === id)
 	},
@@ -22,10 +28,10 @@ export const User = {
 
 export interface Task {
 	user: string
-	createdAt: Date
+	createdAt: string
 	description: string
 	id: string
-	modifiedAt: Date
+	modifiedAt: string
 	title: string
 }
 
