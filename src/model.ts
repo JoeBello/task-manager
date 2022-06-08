@@ -1,4 +1,4 @@
-import { insertTask, insertUser, Tasks, Users } from './db'
+import { Tasks, Users, destroy, modify, insertUser, insertTask } from './db'
 
 export interface User {
 	id: string
@@ -12,18 +12,27 @@ export interface NewUser {
 	username: string
 }
 
+export interface UserUpdate {
+	id: string
+	username?: string
+}
+
 export const User = {
-	create: (newUser: NewUser) => {
+	create: (newUser: NewUser): User => {
 		return insertUser(newUser)
 	},
-	getById: (id: string) => {
-		return Users.find((user) => user.id === id)
+	getById: (id: string): User => {
+		return Users.find((user) => user.id === id) as User
 	},
-	getByTaskId: (taskId: string) => {
-		return Users.find((user) => user.tasks.includes(taskId))
+	getByTaskId: (taskId: string): User => {
+		return Users.find((user) => user.tasks.includes(taskId)) as User
+	},
+	update: (data: UserUpdate): User => {
+		return modify('Users', data) as User
+	},
+	delete: (id: string): User => {
+		return destroy('Users', id) as User
 	}
-	// update
-	// delete
 }
 
 export interface Task {
@@ -41,6 +50,13 @@ export interface NewTask {
 	description?: string
 }
 
+export interface TaskUpdate {
+	id: string
+	title?: string
+	user?: string
+	description?: string
+}
+
 export const Task = {
 	create: (newTask: NewTask) => {
 		return insertTask(newTask)
@@ -50,7 +66,11 @@ export const Task = {
 	},
 	getByUserId: (userId: string) => {
 		return Tasks.filter((task) => task.user === userId)
+	},
+	update: (data: TaskUpdate): Task => {
+		return modify('Tasks', data) as Task
+	},
+	delete: (id: string): Task => {
+		return destroy('Tasks', id) as Task
 	}
-	// update
-	// delete
 }
