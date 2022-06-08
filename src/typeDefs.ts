@@ -45,10 +45,12 @@ const typeDefs = gql`
 	}
 
 	type Mutation {
-		newTask(input: NewTaskInput!): Task!
 		newUser(input: NewUserInput!): User!
-		updateTask(input: UpdateTaskInput!): User!
 		updateUser(input: UpdateUserInput!): User!
+		deleteUser(id: ID!): User!
+		newTask(input: NewTaskInput!): Task!
+		updateTask(input: UpdateTaskInput!): Task!
+		deleteTask(id: ID!): Task!
 	}
 `
 
