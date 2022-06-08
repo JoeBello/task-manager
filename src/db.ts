@@ -1,13 +1,13 @@
 import casual from 'casual'
 
-import { NewTask, NewUser, Task, User } from './model'
+import { NewUser, User, UserUpdate, NewTask, Task, TaskUpdate } from './model'
 
-interface EntityMap {
+interface SkeletonMap {
 	User: User
 	Task: Task
 }
 
-const entityMap: EntityMap = {
+const skeletonMap: SkeletonMap = {
 	User: {
 		id: '',
 		username: '',
@@ -25,7 +25,28 @@ const entityMap: EntityMap = {
 	}
 }
 
-type Entities = keyof typeof entityMap
+type SkeletonEntity = keyof typeof skeletonMap
+
+const write = function write(table: Array<Task | User>, data: Task | User) {
+	table.push(data)
+	return data
+}
+
+const formatForWrite = function formatForWrite(
+	data: NewTask | NewUser,
+	entity: SkeletonEntity
+): User | Task {
+	const skeleton = skeletonMap[entity]
+	const timestamp = new Date().toISOString()
+
+	return {
+		...skeleton,
+		...data,
+		id: `${casual.integer()}`,
+		createdAt: timestamp,
+		modifiedAt: timestamp
+	}
+}
 
 export const Users: User[] = [
 	{
@@ -43,6 +64,20 @@ export const Users: User[] = [
 		tasks: ['200', '201']
 	}
 ]
+
+export const insertUser = function insertUser(user: NewUser): User {
+	const existingUser = Users.find((existing) => existing.username === user.username)
+
+	if (existingUser) {
+		throw new Error('User already exists')
+	}
+
+	const insertUser = formatForWrite({ ...user }, 'User') as User
+
+	write(Users, insertUser)
+
+	return insertUser
+}
 
 export const Tasks: Task[] = [
 	{
@@ -79,7 +114,7 @@ export const Tasks: Task[] = [
 	}
 ]
 
-export const insertTask = function insertTask(task: NewTask) {
+export const insertTask = function insertTask(task: NewTask): Task {
 	const taskUser = Users.find((user) => user.id === task.user)
 
 	if (!taskUser) {
@@ -98,34 +133,50 @@ export const insertTask = function insertTask(task: NewTask) {
 	return insertTask
 }
 
-export const insertUser = function insertUser(user: NewUser) {
-	const existingUser = Users.find((existing) => existing.username === user.username)
-
-	if (existingUser) {
-		throw new Error('User already exists')
-	}
-
-	const insertUser = formatForWrite({ ...user }, 'User') as User
-
-	write(Users, insertUser)
-
-	return insertUser
+const entityMap = {
+	Users,
+	Tasks
 }
 
-const write = function write(table: Array<Task | User>, data: Task | User) {
-	table.push(data)
-	return data
+type Entity = keyof typeof entityMap
+
+export const destroy = function destroy(entity: Entity, id: string): User | Task {
+	console.log('=> Destroy')
+	const table = entityMap[entity]
+	const index = table.findIndex((existing) => {
+		console.log({
+			existing,
+			id
+		})
+		return existing.id === id
+	})
+
+	const instance = table[index]
+	console.log({
+		id,
+		table,
+		index,
+		instance
+	})
+
+	if (index === -1) {
+		throw new Error(`${entity} entry does not exist`)
+	}
+
+	return table.splice(index, 1)[0]
 }
 
-const formatForWrite = function formatForWrite(data: NewTask | NewUser, entity: Entities) {
-	const skeleton = entityMap[entity]
-	const timestamp = new Date().toISOString()
+export const modify = function modify(entity: Entity, update: UserUpdate | TaskUpdate) {
+	const table = entityMap[entity]
+	const index = table.findIndex((existing) => existing.id === update.id)
 
-	return {
-		...skeleton,
-		...data,
-		id: `${casual.integer()}`,
-		createdAt: timestamp,
-		modifiedAt: timestamp
+	if (index === -1) {
+		throw new Error(`${entity} entry does not exist`)
 	}
+
+	const modified = { ...table[index], ...update }
+
+	table[index] = modified
+
+	return modified
 }
