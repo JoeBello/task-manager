@@ -21,8 +21,22 @@ export const User = {
 	create: (newUser: NewUser): User => {
 		return insertUser(newUser)
 	},
-	getById: (id: string): User => {
-		return Users.find((user) => user.id === id) as User
+	getById: (id: string, context: Record<string, any>): User => {
+		// return Users.find((user) => user.id === id) as User
+
+		return context.pool.connect().then((client: any) => {
+			return client
+				.query('SELECT $1::text as message', ['Hello User!'])
+				.then((queryResponse: any) => {
+					client.release()
+					const res = queryResponse.rows[0].message
+					console.log({ res })
+				})
+				.catch((err: any) => {
+					client.release()
+					console.error({ err })
+				})
+		})
 	},
 	getByTaskId: (taskId: string): User => {
 		return Users.find((user) => user.tasks.includes(taskId)) as User
@@ -61,8 +75,21 @@ export const Task = {
 	create: (newTask: NewTask) => {
 		return insertTask(newTask)
 	},
-	getById: (id: string) => {
-		return Tasks.find((task) => task.id === id)
+	getById: (id: string, context: Record<string, any>) => {
+		// return Tasks.find((task) => task.id === id)
+		return context.pool.connect().then((client: any) => {
+			return client
+				.query('SELECT $1::text as message', ['Hello Task!'])
+				.then((queryResponse: any) => {
+					client.release()
+					const res = queryResponse.rows[0].message
+					console.log({ res })
+				})
+				.catch((err: any) => {
+					client.release()
+					console.error({ err })
+				})
+		})
 	},
 	getByUserId: (userId: string) => {
 		return Tasks.filter((task) => task.user === userId)

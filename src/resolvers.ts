@@ -2,11 +2,11 @@ import { User, Task } from './model'
 
 const resolvers = {
 	Query: {
-		user(parent: Record<string, any>, args: Record<string, any>) {
-			return User.getById(args.id)
+		user(parent: Record<string, any>, args: Record<string, any>, context: Record<string, any>) {
+			return User.getById(args.id, context)
 		},
-		task(parent: Record<string, any>, args: Record<string, any>) {
-			return Task.getById(args.id)
+		task(parent: Record<string, any>, args: Record<string, any>, context: Record<string, any>) {
+			return Task.getById(args.id, context)
 		}
 	},
 	Mutation: {
