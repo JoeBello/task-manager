@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "rimraf ./build && tsc",
+		"migrate": "node-pg-migrate --m='src/sql/migrations' --tsconfig='./tsconfig.json'",
 		"dev": "nodemon",
 		"lint": "eslint src/**/* --ext .ts",
 		"postinstall": "husky install",
@@ -31,6 +32,7 @@
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"husky": "^8.0.0",
+		"node-pg-migrate": "^6.2.2",
 		"nodemon": "^2.0.16",
 		"prettier": "^2.6.2",
 		"rimraf": "^3.0.2",
