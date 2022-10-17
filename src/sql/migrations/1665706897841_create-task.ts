@@ -27,7 +27,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 				notNull: true,
 				type: 'varchar(32)'
 			},
-			user_id: {
+			userId: {
 				notNull: true,
 				onDelete: 'CASCADE',
 				references: '"user"',
