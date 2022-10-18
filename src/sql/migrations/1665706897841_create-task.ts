@@ -8,26 +8,26 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 		'task',
 		{
 			id: 'id',
-			createdAt: {
+			created: {
 				default: pgm.func('current_timestamp'),
 				notNull: true,
-				type: 'timestamp'
+				type: 'timestamptz'
 			},
 			description: {
 				default: null,
 				type: 'varchar(126)'
 			},
-			updatedAt: {
+			modified: {
 				// TODO: trigger
 				default: pgm.func('current_timestamp'),
 				notNull: true,
-				type: 'timestamp'
+				type: 'timestamptz'
 			},
 			title: {
 				notNull: true,
 				type: 'varchar(32)'
 			},
-			userId: {
+			user_id: {
 				notNull: true,
 				onDelete: 'CASCADE',
 				references: '"user"',

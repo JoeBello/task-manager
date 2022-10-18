@@ -9,16 +9,16 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 		'user',
 		{
 			id: 'id',
-			createdAt: {
+			created: {
 				default: pgm.func('current_timestamp'),
 				notNull: true,
-				type: 'timestamp'
+				type: 'timestamptz'
 			},
-			updatedAt: {
+			modified: {
 				// TODO: trigger
 				default: pgm.func('current_timestamp'),
 				notNull: true,
-				type: 'timestamp'
+				type: 'timestamptz'
 			},
 			username: {
 				notNull: true,
