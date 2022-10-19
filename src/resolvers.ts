@@ -1,4 +1,4 @@
-import { Context, Task, User } from './Models'
+import { Context, Task, User } from './models'
 
 const resolvers = {
 	Query: {
