@@ -15,4 +15,8 @@ pool.on('error', (err) => {
 	process.exit(-1)
 })
 
-export default pool
+const db = {
+	read: pool.query
+}
+
+export default db
