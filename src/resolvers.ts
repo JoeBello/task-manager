@@ -3,7 +3,7 @@ import { Context, Task, User } from './models'
 const resolvers = {
 	Query: {
 		user(parent: Record<string, any>, args: Record<string, any>, context: Context) {
-			return User.findById(context, args.id)
+			// return User.findById(context, args.id)
 		}
 		// ,
 		// task(parent: Record<string, any>, args: Record<string, any>, context: Record<string, any>) {
@@ -12,13 +12,13 @@ const resolvers = {
 	},
 	Mutation: {
 		newUser(parent: Record<string, any>, args: Record<string, any>, context: Context) {
-			return User.create(context, args.input)
+			// return User.create(context, args.input)
 		},
 		updateUser(parent: Record<string, any>, args: Record<string, any>, context: Context) {
-			return User.update(context, args.input)
+			// return User.update(context, args.input)
 		},
 		deleteUser(parent: Record<string, any>, args: Record<string, any>, context: Context) {
-			return User.delete(context, args.id)
+			// return User.delete(context, args.id)
 		}
 		// ,
 		// newTask(parent: Record<string, any>, args: Record<string, any>) {
