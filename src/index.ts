@@ -1,18 +1,16 @@
 import 'dotenv/config'
 import { ApolloServer } from 'apollo-server'
-
-import pool from './services/db'
 import resolvers from './resolvers'
 import typeDefs from './typeDefs'
 
 const { SERVER_PORT } = process.env
 
-const context = { pool }
+const context = {}
 
 const server = new ApolloServer({
-	typeDefs,
+	context,
 	resolvers,
-	context
+	typeDefs
 })
 
 server
