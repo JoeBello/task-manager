@@ -1,4 +1,4 @@
-import { PersistenceModel } from './PersistenceModel'
+import { Model } from './Model'
 
 export interface TaskData {
 	user: string
@@ -24,6 +24,6 @@ export type UpdateTask = {
 	description?: string
 }
 
-export class Task extends PersistenceModel {
+export class Task extends Model {
 	protected static entity: TaskEntity = 'Task'
 }
