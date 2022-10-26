@@ -2,8 +2,8 @@ import { Context, Task, User } from './models'
 
 const resolvers = {
 	Query: {
-		user(parent: Record<string, any>, args: Record<string, any>, context: Context) {
-			// return User.findById(context, args.id)
+		async user(parent: Record<string, any>, args: Record<string, any>, context: Context) {
+			return User.findById(context, args.id)
 		}
 		// ,
 		// task(parent: Record<string, any>, args: Record<string, any>, context: Record<string, any>) {

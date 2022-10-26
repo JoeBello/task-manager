@@ -4,12 +4,11 @@ import { Model } from './Model'
 export interface UserData {
 	id: string
 	username: string
-	createdAt: string
-	modifiedAt: string
-	tasks: Array<string>
+	created: string
+	modified: string
 }
 
-export type UserEntity = 'User'
+export type UserEntity = 'user'
 
 export type NewUser = {
 	username: string
@@ -21,17 +20,28 @@ export type UpdateUser = {
 }
 
 export class User extends Model {
-	protected static entity: UserEntity = 'User'
+	private static entity: UserEntity = 'user'
+
+	constructor(context: Context, data: Record<string, any>) {
+		super(context, data, User.entity)
+	}
 
 	// // static create(context: Context, newUser: NewUser): UserData {
 	// static create(context: Context, newUser: NewUser): void {
 	// 	return User.make(context, newUser, User.entity)
 	// }
 
-	// // static findById(context: Context, id: string): UserData {
-	// static findById(context: Context, id: string): void {
-	// 	return User.findOne(context, id, User.entity)
-	// }
+	static async findById(context: Context, id: string): Promise<UserData> {
+		context.conditions = { operation: 'find', attribute: 'id', value: id }
+		// TODO: error typing
+		const user = await User.find(User.entity, context).catch((err: any) => err)
+
+		if (user instanceof Error) {
+			// TODO: handle error
+		}
+
+		return user[0]
+	}
 
 	// // static update(context: Context, id: string): UserData {
 	// static update(context: Context, id: string): void {

@@ -1,10 +1,13 @@
 import db from '../services/db'
 import { Context } from './Context'
-import { UserEntity } from './User'
-import { TaskEntity } from './Task'
+import { UserEntity, UserData } from './User'
+import { TaskEntity, TaskData } from './Task'
 
 export type Data = Record<string, any>
+export type FindData = UserData | TaskData
 export type Entities = TaskEntity | UserEntity
+
+export type Conditions = Record<string, any>
 export class Model {
 	private db = db
 	private entity: Entities | undefined
@@ -21,7 +24,9 @@ export class Model {
 		// db.create
 	}
 
-	static find(context: Context, data: Data) {
+	static find(entity: Entities, context: Context): Promise<Record<string, any>> {
+		const { conditions } = context
+		return db.query(entity, conditions)
 		// db.read
 	}
 
