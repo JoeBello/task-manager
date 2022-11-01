@@ -2,9 +2,9 @@ import gql from 'graphql-tag'
 
 const typeDefs = gql`
 	type User {
-		createdAt: String!
+		created: String!
 		id: ID!
-		modifiedAt: String!
+		modified: String!
 		tasks: [Task]!
 		username: String!
 	}
@@ -20,10 +20,10 @@ const typeDefs = gql`
 
 	type Task {
 		user: User!
-		createdAt: String!
+		created: String!
 		description: String
 		id: ID!
-		modifiedAt: String!
+		modified: String!
 		title: String!
 	}
 
