@@ -19,13 +19,16 @@ pool.on('error', (err) => {
 
 const query = async function query(
 	entity: Entities,
-	conditions: Record<string, any>
+	conditions: Record<string, any>,
+	data: Record<string, any>
 ): Promise<FindData> {
-	const { attribute, operation, value } = conditions
+	const { attribute, operation } = conditions
 	const dbQuery = queries(operation, attribute)
 
+	// TODO: handle query not found
+
 	// TODO: result type
-	return pool.query(dbQuery(entity, value)).then((result: any) => result.rows)
+	return pool.query(dbQuery(entity, data)).then((result: any) => result.rows)
 }
 
 const db = {
