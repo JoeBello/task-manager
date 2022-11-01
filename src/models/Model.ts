@@ -24,14 +24,15 @@ export class Model {
 		// db.create
 	}
 
-	static find(entity: Entities, context: Context): Promise<Record<string, any>> {
+	static find(entity: Entities, context: Context, data: Data): Promise<Record<string, any>> {
 		const { conditions } = context
-		return db.query(entity, conditions)
+		return db.query(entity, conditions, data)
 		// db.read
 	}
 
-	static update(context: Context, data: Data) {
-		// db.update
+	static modify(entity: Entities, context: Context, data: Data): Promise<Record<string, any>> {
+		const { conditions } = context
+		return db.query(entity, conditions, data)
 	}
 
 	static delete(context: Context, data: Data) {

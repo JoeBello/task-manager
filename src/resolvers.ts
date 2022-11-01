@@ -2,6 +2,7 @@ import { Context, Task, User } from './models'
 
 const resolvers = {
 	Query: {
+		// TODO: explicit resolvers (userById, updateUserById, etc)
 		async user(parent: Record<string, any>, args: Record<string, any>, context: Context) {
 			return User.findById(context, args.id)
 		}
@@ -15,7 +16,7 @@ const resolvers = {
 			// return User.create(context, args.input)
 		},
 		updateUser(parent: Record<string, any>, args: Record<string, any>, context: Context) {
-			// return User.update(context, args.input)
+			return User.updateById(context, args.input)
 		},
 		deleteUser(parent: Record<string, any>, args: Record<string, any>, context: Context) {
 			// return User.delete(context, args.id)
