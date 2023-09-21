@@ -3,3 +3,4 @@
 !*.example
 build
 node_modules
+*.notes.md
